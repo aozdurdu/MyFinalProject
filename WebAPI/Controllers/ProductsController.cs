@@ -12,11 +12,12 @@ using System.Threading.Tasks;
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController] //Attribute. In Java this called "Annotation"
+    [ApiController]
     public class ProductsController : ControllerBase
     {
-        //loosely coupled
-        //IoC Container --> Inversion of Control
+        //Loosely coupled
+        //naming convention
+        //IoC Container -- Inversion of Control
         IProductService _productService;
 
         public ProductsController(IProductService productService)
@@ -26,13 +27,16 @@ namespace WebAPI.Controllers
 
         [HttpGet("getall")]
         public IActionResult GetAll()
-        {            
+        {
+            //Swagger
+            //Dependency chain --
             var result = _productService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);            
+            return BadRequest(result);
+
         }
 
         [HttpGet("getbyid")]
@@ -43,10 +47,10 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
-        
-        
+
         [HttpPost("add")]
         public IActionResult Add(Product product)
         {
@@ -57,5 +61,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+
     }
 }
